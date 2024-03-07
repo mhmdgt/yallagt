@@ -106,9 +106,10 @@
 
     <!-- Image Real-Time JS -->
     <script src="{{ asset('gt_manager') }}/assets/js/imageRealTime.js"></script>
+    <script src="{{ asset('gt_manager') }}/assets/js/jquery-3.7.1.min.js"></script>
 
     <!-- ------------------------------- END Inject:js ------------------------------- -->
-
+@yield('script')
 </body>
 
 </html>

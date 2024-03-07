@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class CarBrand extends Model
 {
     use HasFactory;
-
+    protected $fillable = ["logo", 'name',"slug"];
     protected $guarded = [];
 
 
@@ -18,9 +18,4 @@ class CarBrand extends Model
     {
         return $this->hasMany(CarBrandModel::class);
     }
-
-
-
-
-
 } // END CLASS

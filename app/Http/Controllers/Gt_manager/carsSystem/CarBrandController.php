@@ -2,30 +2,33 @@
 
 namespace App\Http\Controllers\Gt_manager\carsSystem;
 
-use App\Http\Controllers\Controller;
 use App\Models\CarBrand;
-use Buglinjo\LaravelWebp\Facades\Webp;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Buglinjo\LaravelWebp\Facades\Webp;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\GtManager\CarBrand\StoreCarBrandRequest;
 
 class CarBrandController extends Controller
 {
     // -------------------- Show All Brands Method -------------------- //
     public function AllCarBrands()
     {
-        $brands = CarBrand::orderBy('brand_name', 'asc')->get();
+        $brands = CarBrand::latest()->get(['id','name','slug']);
         return view('gt-manager.carsSystem.all_brands', compact('brands'));
     }
 
     // -------------------- Store Brand Method v2 -------------------- //
-    public function StoreCarBrand(Request $request)
+    public function StoreCarBrand(StoreCarBrandRequest $request)
     {
-        $request->validate([
-            'name_ar' => 'required|string',
-            'name_en' => 'required|string',
-            'logo' => 'required|image|mimes:png', // Adjust allowed extensions
-        ]);
+    //    dd($request->all());
+        // $request->validate([
+        //     'name_ar' => 'required|string',
+        //     'name_en' => 'required|string',
+        //     'logo' => 'required|image|mimes:png', // Adjust allowed extensions
+        // ]);
 
         $webp = Webp::make($request->file('logo'));
 
@@ -35,13 +38,14 @@ class CarBrandController extends Controller
 
             // File is saved successfully
             CarBrand::create([
-                'brand_name' => $request->input('name_ar'),
-                'slug' => $request->input('name_en'),
+               
+                'name' => $request->name_en,
+                'slug' => Str::slug($request->name_en),
                 'logo' => $hexName,
             ]);
         }
         toast('Your Brand as been added!', 'success');
-        return back();
+        return response()->json(['success'=>"stored"]);
     }
 
     // -------------------- Update Brand Method -------------------- //
@@ -67,7 +71,6 @@ class CarBrandController extends Controller
 
         Alert::success('Successfully', 'Your brand has been Updated');
         return redirect()->route('show-all-car-brands');
-
     }
 
     // -------------------- Delete Brand Method -------------------- //
@@ -77,5 +80,4 @@ class CarBrandController extends Controller
         Alert::success('Successfully', 'Your brand has been deleted');
         return redirect()->route('show-all-car-brands');
     }
-
 } /////////////////////////  End Page /////////////////////////
