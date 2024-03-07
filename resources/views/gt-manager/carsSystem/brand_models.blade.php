@@ -37,7 +37,7 @@
                                     <i data-feather="edit"></i>
                                 </button>
                                 <a href="{{ route('delete.brand', $car_brand->id) }}" class="btn btn-inverse-danger"
-                                    data-confirm-delete="true">
+                                    data-confirm-delete="true" id="delete">
                                         <i data-feather="trash-2"></i>
                                 </a>
                             </td>
@@ -182,3 +182,5 @@
         </div>
     </div>
 @endsection
+
+
