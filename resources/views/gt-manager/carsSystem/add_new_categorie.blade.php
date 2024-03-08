@@ -6,78 +6,208 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('index-page') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a href="{{ route('show-all-car-brands') }}">Stock Cars</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ route('show-all-car-brands') }}">Stock Cars</a>
+                    </li>
                     <li class="breadcrumb-item"><a>Add New Categorie</a></li>
                 </ol>
             </div>
         </nav>
 
-        <section class="container">
-            <header>Categorie Specs</header>
-            <form action="#" class="form">
-              <div class="input-box">
-                <label>Full Name</label>
-                <input type="text" placeholder="Enter full name" required />
-              </div>
+        <form>
+            {{-- Name & Price --}}
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row pt-0">
+                                <div class="col">
+                                    <label>Name</label>
+                                    <div id="the-basics">
+                                        <input class="typeahead" type="text">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputNumber1">Price</label>
+                                    <input type="number" class="form-control" id="exampleInputNumber1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Body --}}
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row pt-0 mt-4">
+                                <div class="col">
+                                    <label>Body Shape</label>
+                                    <div>
+                                        <select class="js-example-basic-single w-100">
+                                            <option value="TX">Sedan</option>
+                                            <option value="NY">HatchBack</option>
+                                            <option value="FL">Florida</option>
+                                            <option value="KN">Kansas</option>
+                                            <option value="HW">Hawaii</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row pt-0">
+                                <div class="col">
+                                    <label for="exampleInputNumber1">Number of seats</label>
+                                    <input type="number" class="form-control" id="exampleInputNumber1">
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputNumber1">Rims Size</label>
+                                    <input type="number" class="form-control" id="exampleInputNumber1">
+                                </div>
+                            </div>
+                            <div class="form-group row pt-0">
+                                <div class="col">
+                                    <label for="exampleInputNumber1">Trunk Size</label>
+                                    <input type="number" class="form-control" id="exampleInputNumber1">
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputNumber1">Fuel Tank Capacity</label>
+                                    <input type="number" class="form-control" id="exampleInputNumber1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Engine --}}
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row pt-0 mt-4">
+                                <div class="col">
+                                    <label>Engine Capacity</label>
+                                    <div id="the-basics">
+                                        <input class="typeahead" type="text" placeholder="Horsepower">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row pt-0">
+                                <div class="col">
+                                    <label>Cylinders</label>
+                                    <div id="bloodhound">
+                                        <input class="typeahead" type="text" placeholder="Torque">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputNumber1">Acceleration</label>
+                                    <input type="number" class="form-control" id="exampleInputNumber1">
+                                </div>
+                            </div>
+                            <div class="form-group row pt-0">
+                                <div class="col">
+                                    <label>Aspiration</label>
+                                    <div>
+                                        <select class="js-example-basic-single w-100">
+                                            <option value="TX">Manual</option>
+                                            <option value="NY">Auto</option>
+                                            <option value="FL">CVT</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputNumber1">Maximum Speed</label>
+                                    <input type="number" class="form-control" id="exampleInputNumber1">
+                                </div>
+                            </div>
+                            <div class="form-group row pt-0">
+                                <div class="col">
+                                    <label>Horsepower</label>
+                                    <div id="the-basics">
+                                        <input class="typeahead" type="text" placeholder="Horsepower">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label>Newton meter</label>
+                                    <div id="bloodhound">
+                                        <input class="typeahead" type="text" placeholder="Torque">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Transmission --}}
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row pt-0 mt-4">
+                                <div class="col">
+                                    <label>Transmission</label>
+                                    <div>
+                                        <select class="js-example-basic-single w-100">
+                                            <option value="TX">Manual</option>
+                                            <option value="NY">Auto</option>
+                                            <option value="FL">CVT</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputNumber1">Transmission Speeds</label>
+                                    <input type="number" class="form-control" id="exampleInputNumber1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Fule --}}
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row pt-0 mt-4">
+                                <div class="col">
+                                    <label>Fule Type</label>
+                                    <div>
+                                        <select class="js-example-basic-single w-100">
+                                            <option value="TX">Banzen</option>
+                                            <option value="NY">Diesel</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputNumber1">Fuel Consumption</label>
+                                    <input type="number" class="form-control" id="exampleInputNumber1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Status --}}
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="optionsRadios5" id="optionsRadios5"
+                            value="option5">
+                        Active
+                        <i class="input-frame"></i></label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="optionsRadios5" id="optionsRadios6"
+                            value="option5">
+                        hide
+                        <i class="input-frame"></i></label>
+                </div>
 
-              <div class="input-box">
-                <label>Email Address</label>
-                <input type="text" placeholder="Enter email address" required />
-              </div>
-
-              <div class="column">
-                <div class="input-box">
-                  <label>Phone Number</label>
-                  <input type="number" placeholder="Enter phone number" required />
-                </div>
-                <div class="input-box">
-                  <label>Birth Date</label>
-                  <input type="date" placeholder="Enter birth date" required />
-                </div>
-              </div>
-              <div class="gender-box">
-                <h3>Gender</h3>
-                <div class="gender-option">
-                  <div class="gender">
-                    <input type="radio" id="check-male" name="gender" checked />
-                    <label for="check-male">male</label>
-                  </div>
-                  <div class="gender">
-                    <input type="radio" id="check-female" name="gender" />
-                    <label for="check-female">Female</label>
-                  </div>
-                  <div class="gender">
-                    <input type="radio" id="check-other" name="gender" />
-                    <label for="check-other">prefer not to say</label>
-                  </div>
-                </div>
-              </div>
-              <div class="input-box address">
-                <label>Address</label>
-                <input type="text" placeholder="Enter street address" required />
-                <input type="text" placeholder="Enter street address line 2" required />
-                <div class="column">
-                  <div class="select-box">
-                    <select>
-                      <option hidden>Country</option>
-                      <option>America</option>
-                      <option>Japan</option>
-                      <option>India</option>
-                      <option>Nepal</option>
-                    </select>
-                  </div>
-                  <input type="text" placeholder="Enter your city" required />
-                </div>
-                <div class="column">
-                  <input type="text" placeholder="Enter your region" required />
-                  <input type="number" placeholder="Enter postal code" required />
-                </div>
-              </div>
-              <button>Submit</button>
-            </form>
-          </section>
-
-
+                {{-- Submit --}}
+                <button class="btn btn-primary" type="submit">Submit form</button>
+            </div>
+        </form>
 
     </div>
+
 @endsection

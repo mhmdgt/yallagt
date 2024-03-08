@@ -7,8 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin | Yalla GT</title>
     <!-- ------------------------------- Head Injectors ------------------------------- -->
-    <!-- jqaury -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <!-- Select2-->
+    <link rel="stylesheet" href="{{ asset('gt_manager') }}/assets/css/select2/select2.css">
 
     <!-- core:css -->
     <link rel="stylesheet" href="{{ asset('gt_manager') }}/assets/vendors/core/core.css">
@@ -68,6 +69,8 @@
     </div>
 
     <!-- ------------------------------- Inject:js ------------------------------- -->
+    <!-- jqaury -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- core:js -->
     <script src="{{ asset('gt_manager') }}/assets/vendors/core/core.js"></script>
     <!-- endinject -->
@@ -87,6 +90,7 @@
     <script src="{{ asset('gt_manager') }}/assets/js/dashboard.js"></script>
     <script src="{{ asset('gt_manager') }}/assets/js/datepicker.js"></script>
     <script src="{{ asset('gt_manager') }}/assets/js/file-upload.js"></script>
+    <script src="{{ asset('gt_manager') }}/assets/js/select2.js"></script>
     <!-- end custom js for this page -->
 
     <!-- plugin js for Data Tables -->
@@ -103,12 +107,13 @@
 
     <!-- Valdation JS -->
     <script src="{{ asset('gt_manager') }}/assets/js/validate.min.js"></script>
-
     <!-- Image Real-Time JS -->
     <script src="{{ asset('gt_manager') }}/assets/js/imageRealTime.js"></script>
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('gt_manager') }}/assets/js/select2.js"></script>
 
     <!-- ------------------------------- END Inject:js ------------------------------- -->
-
 </body>
 
 </html>
