@@ -72,7 +72,7 @@ class CarBrandModelsController extends Controller
         public function AllStockCars()
         {
 
-            return view('gt-manager.carsSystem.stock_cars');
+            return view('gt-manager.carsSystem.add_new_categorie');
         }
 
 
