@@ -40,14 +40,10 @@
                     </ul>
                 </div>
             </li>
-            {{-- END 1st Section --}}
-
-            {{-- 2nd Section --}}
-            <li class="nav-item nav-category">System Assets</li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#CarsSystem" role="button" aria-expanded="false" aria-controls="CarsSystem">
                     <i class="link-icon" data-feather="navigation-2"></i>
-                    <span class="link-title">Cars system</span>
+                    <span class="link-title">Cars Assets</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
                 <div class="collapse" id="CarsSystem">
@@ -56,8 +52,25 @@
                             <a href="{{route('show-all-car-brands')}}" class="nav-link">
                                 Brands & Models</a>
                         </li>
+
+                    </ul>
+                </div>
+            </li>
+            {{-- END 1st Section --}}
+
+            {{-- 2nd Section --}}
+            
+            <li class="nav-item nav-category">Work</li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ProductSystem" role="button" aria-expanded="false" aria-controls="ProductSystem">
+                    <i class="link-icon" data-feather="package"></i>
+                    <span class="link-title">Stock Cars</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="ProductSystem">
+                    <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{route('all-stock-cars')}}" class="nav-link">All Stock Cars</a>
+                            <a href="{{route('all-stock-cars')}}" class="nav-link">Show All</a>
                         </li>
                     </ul>
                 </div>

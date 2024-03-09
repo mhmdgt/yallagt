@@ -30,7 +30,7 @@
 
                         <h4 class="text-black mb-4 ">Audi A3 2024</h4>
 
-                        <a href="#" class="btn btn-outline-primary">add</a>
+                        <a href="{{route('create-category')}}" class="btn btn-outline-primary">add</a>
                         <a href="#" class="btn btn-primary">Import .xlsx</a>
                         <a href="#" class="btn btn-secondary">Export .xlsx</a>
                     </div>
@@ -327,7 +327,6 @@
                 </div>
             </div>
         </div>
-
 
     </div>
 @endsection

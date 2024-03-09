@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Gt_manager\AdminProfile\AdminController;
 use App\Http\Controllers\Gt_manager\carsSystem\CarBrandController;
+use App\Http\Controllers\Gt_manager\stock_cars\StockCarsController;
+use App\Http\Controllers\Gt_manager\stock_cars\CarCategoriesController;
 use App\Http\Controllers\Gt_manager\AdminProfile\AdminProfileController;
 use App\Http\Controllers\Gt_manager\carsSystem\CarBrandModelsController;
 
@@ -37,16 +39,28 @@ Route::middleware('admin')->group(function(){
             ->name('brand-models');
     Route::post('manager/{id}/store-brand-model', [CarBrandModelsController::class, 'StoreBrandModel'])
             ->name('store-brand-model');
-
-
     // Route::get('manager/brand-model/{id}', [CarBrandModelsController::class, 'UpdateBrandModel'])
     //         ->name('update-brand-model');
     // Route::get('manager/brand-model/{id}', [CarBrandModelsController::class, 'DeleteBrandModel'])
     //         ->name('delete-brand-model');
 
         // Stock Cars //
-    Route::get('manager/all-stock-cars', [CarBrandModelsController::class, 'AllStockCars'])
+    Route::get('manager/all-stock-cars', [StockCarsController::class, 'index'])
             ->name('all-stock-cars');
+    Route::get('manager/create-stock-cars', [StockCarsController::class, 'create'])
+            ->name('create-stock-cars');
+//     Route::get('manager/update-stock-cars', [StockCarsController::class, 'update'])
+//             ->name('create-stock-cars');
+//     Route::get('manager/delete-stock-cars', [StockCarsController::class, 'delete'])
+//             ->name('create-stock-cars');
+
+        // Categories //
+    Route::get('manager/create-category', [CarCategoriesController::class, 'create'])
+            ->name('create-category');
+//     Route::get('manager/update-stock-cars', [StockCarsController::class, 'update'])
+//             ->name('create-stock-cars');
+//     Route::get('manager/delete-stock-cars', [StockCarsController::class, 'delete'])
+//             ->name('create-stock-cars');
 
 
 
