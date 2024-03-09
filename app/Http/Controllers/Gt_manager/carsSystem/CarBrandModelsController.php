@@ -17,7 +17,7 @@ class CarBrandModelsController extends Controller
             confirmDelete($title, $text);
 
             $car_brand = CarBrand::with('models')->find($id);
-            return view('gt-manager.carsSystem.brand_models', compact('car_brand'));
+            return view('gt-manager.cars_assets.brand_models', compact('car_brand'));
         }
 
         // -------------------- Store Brand Models Method -------------------- //
@@ -56,36 +56,6 @@ class CarBrandModelsController extends Controller
 
 
 
-
-
-
-
-
-
-        // test //
-
-        // public function AllStockCars()
-        // {
-
-        //     return view('gt-manager.carsSystem.stock_cars');
-        // }
-        public function AllStockCars()
-        {
-
-            return view('gt-manager.carsSystem.add_new_categorie');
-        }
-
-
     } // End Class
 
 
-
-            // $id = $request->input('id');
-            // $brandData = json_decode($id, true); // true makes it an associative array
-
-            // $brandID = $brandData['id'];
-
-            // dd($brandID);
-
-            // $id = $request->input('id');
-            // dd($id);

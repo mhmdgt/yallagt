@@ -15,7 +15,7 @@ class CarBrandController extends Controller
     public function AllCarBrands()
     {
         $brands = CarBrand::orderBy('brand_name', 'asc')->get();
-        return view('gt-manager.carsSystem.all_brands', compact('brands'));
+        return view('gt-manager.cars_assets.all_brands', compact('brands'));
     }
 
     // -------------------- Store Brand Method v2 -------------------- //
