@@ -62,12 +62,12 @@
             
             <li class="nav-item nav-category">Work</li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#ProductSystem" role="button" aria-expanded="false" aria-controls="ProductSystem">
+                <a class="nav-link" data-toggle="collapse" href="#StockCars" role="button" aria-expanded="false" aria-controls="StockCars">
                     <i class="link-icon" data-feather="package"></i>
                     <span class="link-title">Stock Cars</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="ProductSystem">
+                <div class="collapse" id="StockCars">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{route('all-stock-cars')}}" class="nav-link">Show All</a>
