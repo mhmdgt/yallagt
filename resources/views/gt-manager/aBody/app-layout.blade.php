@@ -40,6 +40,9 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('gt_manager') }}/assets/images/favicon.ico" />
     <!-- ------------------------------- END Head Inject ------------------------------- -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
 </head>
 
 <body class="sidebar-dark">
@@ -66,7 +69,7 @@
 
         </div>
     </div>
-
+    
     <!-- ------------------------------- Inject:js ------------------------------- -->
     <!-- core:js -->
     <script src="{{ asset('gt_manager') }}/assets/vendors/core/core.js"></script>
@@ -102,13 +105,14 @@
     {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> --}}
 
     <!-- Valdation JS -->
-    <script src="{{ asset('gt_manager') }}/assets/js/validate.min.js"></script>
+    {{-- <script src="{{ asset('gt_manager') }}/assets/js/validate.min.js"></script> --}}
 
     <!-- Image Real-Time JS -->
     <script src="{{ asset('gt_manager') }}/assets/js/imageRealTime.js"></script>
-    <script src="{{ asset('gt_manager') }}/assets/js/jquery-3.7.1.min.js"></script>
-
+  
     <!-- ------------------------------- END Inject:js ------------------------------- -->
+<!-- Sweet Alert JS -->
+
 @yield('script')
 </body>
 

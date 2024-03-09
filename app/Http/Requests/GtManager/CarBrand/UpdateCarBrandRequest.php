@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\GtManager\CarBrand;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCarBrandRequest extends FormRequest
@@ -21,9 +22,13 @@ class UpdateCarBrandRequest extends FormRequest
      */
     public function rules(): array
     {
+       
         return [
-            'name_ar' => 'required|string|max:200|unique:car_brands,name_ar,'.$this->car_brand->id,
-            'name_en' => 'required|string|max:200|unique:car_brands,name_en,'.$this->car_brand->id,
+            'name_ar' => ['required','string','max:200',
+            Rule::unique('car_brands', 'name->ar')->ignore($this->carBrand->id)],
+            'name_en' => ['required','string','max:200',
+            Rule::unique('car_brands', 'name->en')->ignore($this->carBrand->id)],
+            // Rule::unique('carBrands', 'name->en')->ignore($this->car_brand->id)],
             'logo' => 'nullable|image|mimes:png', // Adjust allowed extensions
         ];
     }

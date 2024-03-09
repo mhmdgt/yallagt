@@ -1,6 +1,9 @@
 @extends('gt-manager.aBody.app-layout')
 @section('content')
 <div class="page-content">
+   
+
+   
     {{-- ========================== NAV Section ========================== --}}
     <nav class="page-breadcrumb">
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
@@ -16,9 +19,7 @@
             </button>
         </div>
     </nav>
-    @error('logo')
-    <small class="text-danger">{{ $message }}</small>
-    @enderror
+  
     {{-- ========================== All Brands ========================== --}}
     <div class="row">
         <div class="col-md-12">
@@ -39,10 +40,14 @@
                                                 alt="">
                                         </div>
                                     </div>
-                                    <p class="text-center mt-3 text-dark ">{{ $brand->name }}</p>
+                                    <p class="text-center mt-3 text-dark ">{{ $brand->name}}</p>
                                 </a>
                             </div>
                             @endforeach
+                           
+                        </div>
+                        <div class="d-flex justify-content-end">
+                        
                         </div>
                     </div>
                 </div>
@@ -62,10 +67,7 @@
                 </div>
                 <div class="modal-body">
                     {{-- brand store --}}
-                    <div class="alert alert-success ">
-
-                    </div>
-                    <form class="forms-sample" method="POST" enctype="multipart/form-data" id="car-brand">
+                    <form class="forms-sample" method="POST" enctype="multipart/form-data" id="car-brand" >
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name <span class="text-danger">(EN)</span></label>
@@ -90,8 +92,8 @@
                                 <span class="input-group-append">
                                     <button class="file-upload-browse btn btn-success" type="button">Upload</button>
                                 </span>
-                                <small class="text-danger" id='logo_error'></small>
                             </div>
+                            <small class="text-danger" id='logo-error'></small>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmaill" class="form-label"> </label>
@@ -109,67 +111,6 @@
         </div>
     </div>
 </div>
-<!-- Validation JS -->
-<script type="text/javascript">
-    $(document).ready(function() {
-            $('#formValidation').validate({
-                rules: {
-                    name_en: {
-                        required: true,
-                    },
-                    name_ar: {
-                        required: true,
-                    },
-                    photo: {
-                        required: true,
-                    },
-
-                },
-                messages: {
-                    name_en: {
-                        required: 'Please write the English name',
-                    },
-                    name_ar: {
-                        required: 'Please write the Arabic name',
-                    },
-                    photo: {
-                        required: 'Photo Must Be Inserted',
-                    },
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                },
-            });
-        });
-</script>
-
-<!-- Ajax ADD JS -->
-{{-- <script>
-    // add new employee ajax request
-        $("#addCarForm").submit(function(e) {
-            e.preventDefault();
-            const fd = new FormData(this);
-            $("#add_employee_btn").text('Adding...');
-            $.ajax({
-                url: '{{ route('store-car-brand') }}',
-                method: 'POST',
-                data: fd,
-                cache: false,
-                processData: false,
-                contentType: false,
-                success: function(res) {}
-            });
-            console.log(res);
-        })
-</script> --}}
 
 
 
@@ -177,63 +118,55 @@
 
 @section('script')
 <script>
-    // ##########################################################
-$.ajaxSetup({
-                    headers: 
-                    {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-
-// ############ brand store #####################################
-$(document).ready(function() {
-    $('#car-brand').submit(function(e) {
-        console.log("Form submitted");
-        e.preventDefault();
-        let formData = new FormData(this); // 'this' refers to the form being submitted
-        console.log(formData);
-        // start ajax
-        $.ajax({
-            url: "{{ route('store-car-brand') }}",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                console.log(data);
-                Swal.fire(
-                    'Good job!',
-                    'message send successfully',
-                    'success'
-                )
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr);
-                // Error handling
-                if (xhr.status == 422) { // Validation error
-                    var errors = xhr.responseJSON.errors;
-                    // You should handle these errors appropriately
-                    if (errors.hasOwnProperty('name_en')) {
-                        $("#en_name-error").text(errors.name_en[0]);
-                    }
-                    if (errors.hasOwnProperty('name_ar')) {
-                        $("#ar_name-error").text(errors.name_ar[0]);
-                    }
-                    if (errors.hasOwnProperty('logo')) {
-                        $("#logo-error").text(errors.logo[0]);
-                    }
-                } else {
-                    // Handle other types of errors
-                }
-            }
-        });
-        // end ajax
+    // CSRF Token Setup
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
-});
 
+    $(document).ready(function() {
+        $('#car-brand').submit(function(e) {
+            e.preventDefault();
+            let formData = new FormData(this);
 
-
-
+            $.ajax({
+                url: "{{ route('car-brand.store') }}",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    // Show success message
+                    window.location.href = "{{ route('car-brand.index') }}";
+                // Reload the page after a successful request
+                location.reload(true); // Force reload from server
+                 
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    // Error handling
+                    if (xhr.status == 422) {
+                        var errors = xhr.responseJSON.errors;
+                        // Handle validation errors
+                        if (errors.hasOwnProperty('name_en')) {
+                            $("#en_name-error").text(errors.name_en[0]);
+                        }
+                        if (errors.hasOwnProperty('name_ar')) {
+                            $("#ar_name-error").text(errors.name_ar[0]);
+                        }
+                        if (errors.hasOwnProperty('logo')) {
+                            $("#logo-error").text(errors.logo[0]);
+                        }
+                    } else {
+                        // Handle other types of errors
+                    }
+                }
+            });
+        });
+    });
 </script>
+
+
 @endsection
