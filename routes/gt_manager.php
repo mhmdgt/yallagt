@@ -44,6 +44,10 @@ Route::middleware('admin')->group(function(){
     // Route::get('manager/brand-model/{id}', [CarBrandModelsController::class, 'DeleteBrandModel'])
     //         ->name('delete-brand-model');
 
+        // Cars Models //
+    Route::get('manager/models-specs', [CarBrandModelsController::class, 'allSpcesPage'])
+            ->name('model-specs-index');
+
         // Stock Cars //
     Route::get('manager/all-stock-cars', [StockCarsController::class, 'index'])
             ->name('all-stock-cars');

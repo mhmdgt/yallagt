@@ -101,3 +101,13 @@
   right: 10px;
   /* transform: translate(-50%, -50%); */
 }
+
+.left-drop-down-btn{
+  background-color: #ececec;
+  color: #23272A;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 1%;
+}
