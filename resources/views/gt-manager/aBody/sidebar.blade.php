@@ -52,15 +52,18 @@
                             <a href="{{route('show-all-car-brands')}}" class="nav-link">
                                 Brands & Models</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('model-specs-index')}}" class="nav-link">
+                                Model Specs</a>
+                        </li>
 
                     </ul>
                 </div>
             </li>
             {{-- END 1st Section --}}
 
-            {{-- 2nd Section --}}
-            
-            <li class="nav-item nav-category">Work</li>
+            {{-- 2nd Section --}}         
+            <li class="nav-item nav-category">Stock Manager</li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#StockCars" role="button" aria-expanded="false" aria-controls="StockCars">
                     <i class="link-icon" data-feather="package"></i>

@@ -56,6 +56,14 @@ class CarBrandModelsController extends Controller
 
 
 
+
+
+        // test for another future ctrl 'ModelSpecs' //
+        public function allSpcesPage ()
+        {
+            return view('gt-manager.cars_assets.model_specs');
+        } 
+
     } // End Class
 
 

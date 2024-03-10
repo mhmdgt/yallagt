@@ -17,7 +17,7 @@
                 </button>
             </div>
         </nav>
-        {{-- Content Of Models --}}
+        {{-- ====== Content Of Models ====== --}}
         <div class="row gy-3">
             {{-- Loop Starts --}}
             <div class="col-md-4 mb-4">
@@ -30,11 +30,10 @@
                             <i data-feather="edit"></i>
                         </button>
                     </div>
-
                     {{-- add categories --}}
                     <div class="card-body">
 
-                        <h4 class="text-black mb-4 ">Audi A3 2024</h4>
+                        <h4 class="mb-4 ">Audi A3 2024</h4>
 
                         <a href="{{route('create-category')}}" class="btn btn-outline-primary">add</a>
                         <a href="#" class="btn btn-primary">Import .xlsx</a>
