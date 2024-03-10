@@ -27,10 +27,7 @@ class CarBrandController extends Controller
 
     public function store(StoreCarBrandRequest $request)
     {
-
-        
             CarBrand::create([
-
                 'name' => [
                     'en' => $request->name_en,
                     'ar' => $request->name_ar
