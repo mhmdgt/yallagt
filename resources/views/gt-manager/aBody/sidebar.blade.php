@@ -49,7 +49,7 @@
                 <div class="collapse" id="CarsSystem">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{route('show-all-car-brands')}}" class="nav-link">
+                            <a href="{{route('car-brand.index')}}" class="nav-link">
                                 Brands & Models</a>
                         </li>
 

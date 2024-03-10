@@ -78,7 +78,14 @@ Route::middleware('admin')->group(function(){
 
 
 
-
+ ####################CarBrands#################################
+ Route::controller(CarBrandController::class)->prefix('car-brands')->name('car-brand.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::post('/{carBrand}', 'update')->name('update');
+        Route::delete('destroy/{carBrand}', 'destroy')->name('destroy');
+       
+    });
 
 
 

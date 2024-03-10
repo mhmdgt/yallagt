@@ -12,9 +12,7 @@ class CarBrandModelsController extends Controller
         // -------------------- Show Brand Models Method -------------------- //
         public function AllBrandModels ($id)
         {
-            $title = 'Delete User!';
-            $text = "Are you sure you want to delete?";
-            confirmDelete($title, $text);
+            confirmDelete('Delete Brand!', 'Are you sure you want to delete?');
 
             $car_brand = CarBrand::with('models')->find($id);
             return view('gt-manager.cars_assets.brand_models', compact('car_brand'));

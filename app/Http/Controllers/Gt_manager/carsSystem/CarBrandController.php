@@ -1,81 +1,64 @@
 <?php
 
 namespace App\Http\Controllers\Gt_manager\carsSystem;
-
-use App\Http\Controllers\Controller;
 use App\Models\CarBrand;
-use Buglinjo\LaravelWebp\Facades\Webp;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use App\Traits\ImageTrait;
+use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\GtManager\CarBrand\StoreCarBrandRequest;
+use App\Http\Requests\GtManager\CarBrand\UpdateCarBrandRequest;
 
 class CarBrandController extends Controller
 {
-    // -------------------- Show All Brands Method -------------------- //
-    public function AllCarBrands()
-    {
-        $brands = CarBrand::orderBy('brand_name', 'asc')->get();
+    use ImageTrait;
+    public function index()
+    { 
+        $brands = CarBrand::latest()->get();
         return view('gt-manager.cars_assets.all_brands', compact('brands'));
+
     }
 
-    // -------------------- Store Brand Method v2 -------------------- //
-    public function StoreCarBrand(Request $request)
+    public function store(StoreCarBrandRequest $request)
     {
-        $request->validate([
-            'name_ar' => 'required|string',
-            'name_en' => 'required|string',
-            'logo' => 'required|image|mimes:png', // Adjust allowed extensions
-        ]);
-
-        $webp = Webp::make($request->file('logo'));
-
-        $hexName = $request->input('name_en') . md5(time()) . '.webp';
-
-        if ($webp->save(public_path('gt_manager/media/car_brands_logo/' . $hexName))) {
-
-            // File is saved successfully
             CarBrand::create([
-                'brand_name' => $request->input('name_ar'),
-                'slug' => $request->input('name_en'),
-                'logo' => $hexName,
+                'name' => [
+                    'en' => $request->name_en,
+                    'ar' => $request->name_ar
+                ],
+                'slug' => Str::slug($request->name_en),
+                'logo' => $this->uploadImage($request->logo, 'car_brands_logo'),
             ]);
-        }
-        toast('Your Brand as been added!', 'success');
-        return back();
+        
+        Alert::success('Success Message', 'Data processed successfully!');
+        return  response()->json(['success', 'success']);
     }
 
-    // -------------------- Update Brand Method -------------------- //
-    public function UpdateCarBrand(Request $request)
+    public function update(UpdateCarBrandRequest $request, CarBrand $carBrand)
     {
-        $request->validate([
-            'name_ar' => 'unique|string',
-            'name_en' => 'unique|string',
-            'logo' => 'image|mimes:png', // Adjust allowed extensions
+
+        $hexName = $request->logo ? $this->uploadImage($request->logo, 'car_brands_logo', $carBrand->logo) : $carBrand->logo;
+        $carBrand->update([
+            'name' => [
+                'en' => $request->name_en,
+                'ar' => $request->name_ar
+            ],
+            'slug' => Str::slug($request->name_en),
+            'logo' => $hexName,
         ]);
-
-        $webp = Webp::make($request->file('logo'));
-
-        $hexName = $request->input('name_en') . md5(time()) . '.webp';
-
-        if ($webp->save(public_path('gt_manager/media/car_brands_logo/' . $hexName))) {
-            CarBrand::insert([
-                'brand_name' => $request->input('name_ar'),
-                'slug' => $request->input('name_en'),
-                'logo' => $hexName,
-            ]);
-        }
-
-        Alert::success('Successfully', 'Your brand has been Updated');
-        return redirect()->route('show-all-car-brands');
-
+        Alert::success('success', 'Your brand has been Updated');
+        return response()->json(['success' => "success"]);
     }
 
-    // -------------------- Delete Brand Method -------------------- //
-    public function DeleteCarBrand($id)
+    public function destroy(CarBrand $carBrand)
     {
-        CarBrand::findOrFail($id)->delete();
+        $logo=$carBrand->logo;
+      
+       if( $carBrand->delete()){
+        $this->deleteImage($logo,'car_brands_logo');
+       
+       }
         Alert::success('Successfully', 'Your brand has been deleted');
-        return redirect()->route('show-all-car-brands');
+        return redirect()->route('car-brand.index');
     }
-
-} /////////////////////////  End Page /////////////////////////
+}
