@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Gt_manager\AdminProfile\AdminController;
-use App\Http\Controllers\Gt_manager\AdminProfile\AdminLoginController;
+use App\Http\Controllers\Gt_manager\Admin_profile\AdminController;
+use App\Http\Controllers\Gt_manager\Admin_profile\AdminLoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 

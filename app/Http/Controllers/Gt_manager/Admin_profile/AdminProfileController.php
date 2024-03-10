@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Gt_manager\AdminProfile;
+namespace App\Http\Controllers\Gt_manager\Admin_profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
@@ -16,7 +16,7 @@ class AdminProfileController extends Controller
         $id = Auth::guard('admin')->user()->id;
         $adminData = Admin::find($id);
 
-        return view('gt-manager.adminProfile.admin_profile', compact('adminData'));
+        return view('gt-manager.admin_profile.admin_profile', compact('adminData'));
     }
 
     // -------------------- New Method -------------------- //
@@ -49,7 +49,7 @@ class AdminProfileController extends Controller
         $id = Auth::guard('admin')->user()->id;
         $adminData = Admin::find($id);
 
-        return view('gt-manager.adminProfile.admin_change_password', compact('adminData'));
+        return view('gt-manager.admin_profile.admin_change_password', compact('adminData'));
     }
 
     // -------------------- New Method -------------------- //

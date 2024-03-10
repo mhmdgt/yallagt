@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Gt_manager\AdminProfile\AdminController;
-use App\Http\Controllers\Gt_manager\carsSystem\CarBrandController;
-use App\Http\Controllers\Gt_manager\stock_cars\StockCarsController;
-use App\Http\Controllers\Gt_manager\stock_cars\CarCategoriesController;
-use App\Http\Controllers\Gt_manager\AdminProfile\AdminProfileController;
-use App\Http\Controllers\Gt_manager\carsSystem\CarBrandModelsController;
+use App\Http\Controllers\Gt_manager\Admin_profile\AdminController;
+use App\Http\Controllers\Gt_manager\Admin_profile\AdminProfileController;
+use App\Http\Controllers\Gt_manager\Cars_system\CarBrandController;
+use App\Http\Controllers\Gt_manager\Cars_system\CarBrandModelsController;
+use App\Http\Controllers\Gt_manager\Stock_cars\StockCarsController;
+use App\Http\Controllers\Gt_manager\Stock_cars\CarCategoriesController;
 
 
 Route::middleware('admin')->group(function(){

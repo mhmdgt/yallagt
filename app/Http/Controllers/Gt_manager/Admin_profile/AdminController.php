@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Gt_manager\AdminProfile;
+namespace App\Http\Controllers\Gt_manager\Admin_profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Gt_manager\stock_cars;
+namespace App\Http\Controllers\Gt_manager\Stock_cars;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Gt_manager\carsSystem;
+namespace App\Http\Controllers\Gt_manager\Cars_system;
 use App\Models\CarBrand;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Str;

@@ -34,8 +34,8 @@
     <!-- end plugin css for Data Tables -->
 
     <!-- Layout styles -->
-    {{-- <link rel="stylesheet" href="{{ asset('gt_manager') }}/assets/css/light_theme/style.css"> --}}
-    <link rel="stylesheet" href="{{ asset('gt_manager') }}/assets/css/dark_theme/style.css">
+    <link rel="stylesheet" href="{{ asset('gt_manager') }}/assets/css/light_theme/style.css">
+    {{-- <link rel="stylesheet" href="{{ asset('gt_manager') }}/assets/css/dark_theme/style.css"> --}}
     <link rel="stylesheet" href="{{ asset('gt_manager') }}/assets/css/custom.css">
     {{-- <link rel="stylesheet" href="{{ asset('/gt_manager/assets/css/loader/loader-style.css') }}"> --}}
 
