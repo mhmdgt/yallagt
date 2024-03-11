@@ -32,7 +32,7 @@
                         <div class="row">
                             @foreach ($brands as $brand )
                             <div class="col-xl-2 col-lg-3 col-md-4 col-6 mb-4">
-                                <a href="{{ route('brand-models',$brand->id) }}">
+                                <a href="{{ route('car-brand.show',$brand->id) }}">
                                     <div class="border border-light rounded shadow-sm">
                                         <div class="card-logo ">
                                             <img width="100px"
@@ -69,6 +69,7 @@
                     {{-- brand store --}}
                     <form class="forms-sample" method="POST" enctype="multipart/form-data" id="car-brand" >
                         @csrf
+                        
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name <span class="text-danger">(EN)</span></label>
                             <input type="text" class="form-control" name="name_en" autocomplete="off"

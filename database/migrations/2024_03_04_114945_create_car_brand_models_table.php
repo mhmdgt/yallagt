@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('car_brand_models', function (Blueprint $table) {
             $table->id();
             $table->foreignId('car_brand_id')->references('id')->on('car_brands')->cascadeOnDelete();
-            $table->string('model_name');
+            $table->string('name');
             $table->string('slug');
             $table->timestamps();
         });

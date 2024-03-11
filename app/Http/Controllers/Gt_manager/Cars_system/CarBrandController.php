@@ -19,6 +19,15 @@ class CarBrandController extends Controller
 
     }
 
+    public function show(CarBrand $carBrand)
+    { 
+        confirmDelete('Delete Brand!', 'Are you sure you want to delete?');
+
+        $carBrand->with('models');
+      
+        return view('gt-manager.cars_assets.brand_models', compact('carBrand'));
+
+    }
     public function store(StoreCarBrandRequest $request)
     {
             CarBrand::create([
