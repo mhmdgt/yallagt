@@ -91,7 +91,7 @@
                     <div class="modal-body">
 
                         <form id="formValidation" class="forms-sample" method="POST" enctype="multipart/form-data"
-                            action="{{ route('store-car-brand') }}">
+                            action="{{ route('car-brand.store') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputUsername1">Name <span class="text-danger">(EN)</span></label>
@@ -189,7 +189,7 @@
                     <div class="modal-body">
 
                         <form id="formValidation" class="forms-sample" method="POST" enctype="multipart/form-data"
-                            action="{{ route('store-car-brand') }}">
+                            action="{{ route('car-brand.store') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputUsername1">Name <span class="text-danger">(EN)</span></label>

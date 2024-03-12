@@ -47,7 +47,7 @@ class CarBrandModelController extends Controller
 
         public function update(UpdateCarBrandModelRequest $request, CarBrandModel $carBrandModel)
         {
-            dd($carBrandModel);
+           
             $carBrandModel->update([
                 'name' => [
                     'en' => $request->name_en,

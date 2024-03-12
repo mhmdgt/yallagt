@@ -96,8 +96,9 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="car-brand-model-edit" class="forms-sample" method="POST" data-model-id="{{ $model->id }}">
+                                                <form class="forms-sample car-brand-model-edit" method="POST" data-model-id="{{ $model->id }}">
                                                     @csrf
+                                                    @method('PUT')
                                                     <input hidden type="text" class="form-control" name="id" value="{{ $model->id }}">
                                                     <div class="form-group">
                                                         <label for="exampleInputUsername1">Name <span
@@ -247,7 +248,7 @@
     });
 
     $(document).ready(function() {
-        // update car brand 
+        //######################################## update car brand ###################################################
     $('#car-brand').submit(function(e) {
         e.preventDefault();
         let formData = new FormData(this);
@@ -288,7 +289,7 @@
         });
     });
 
-    // add car brand model
+    // #################################### store car brand model#######################################################
     $('#car-brand-model').submit(function(e) {
         e.preventDefault();
         let formData = new FormData(this);
@@ -331,10 +332,8 @@
     });
     });
 
-
-     // edit car brand model
-     $(document).ready(function() {
-    $('#car-brand-model-edit').submit(function(e) {
+// ############################## update car brand model ######################################
+$('.car-brand-model-edit').submit(function(e) {
         e.preventDefault();
         let formData = new FormData(this);
         let modelId = $(this).data('model-id'); // Retrieve the model ID from the form
@@ -343,15 +342,14 @@
 
         $.ajax({
             url: url,
-            type: "POST",
+            type: "POST", // No need to override method here, since we're using @method('PUT') in the form
             data: formData,
-            headers: { 'X-HTTP-Method-Override': 'PUT' }, // Specify the method as PUT in the header
             contentType: false,
             processData: false,
             success: function(data) {
                 console.log(data);
                 // Show success message
-                window.location.href = "{{ route('car-brand.show',$carBrand->id) }}";
+                window.location.href = "{{ route('car-brand.show', $carBrand->id) }}";
                 // Reload the page after a successful request
                 location.reload(true); // Force reload from server
             },
@@ -367,12 +365,11 @@
                     if (errors.hasOwnProperty('name_ar')) {
                         $("#ar_name-error").text(errors.name_ar[0]);
                     }
-                   
-                } 
+                }
             }
         });
     });
-});
+   
 
 });
 

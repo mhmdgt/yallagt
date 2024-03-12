@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Gt_manager\Admin_profile\AdminController;
 use App\Http\Controllers\Gt_manager\Cars_system\CarBrandController;
 use App\Http\Controllers\Gt_manager\Stock_cars\StockCarsController;
+use App\Http\Controllers\Gt_manager\Model_specs\BodyShapeController;
 use App\Http\Controllers\Gt_manager\Stock_cars\CarCategoriesController;
 use App\Http\Controllers\Gt_manager\Cars_system\CarBrandModelController;
 use App\Http\Controllers\Gt_manager\Admin_profile\AdminProfileController;
@@ -46,8 +47,8 @@ Route::middleware('admin')->group(function(){
     //         ->name('delete-brand-model');
 
         // Cars Models //
-    Route::get('manager/models-specs', [CarBrandModelController::class, 'allSpcesPage'])
-            ->name('model-specs-index');
+//     Route::get('manager/models-specs', [CarBrandModelController::class, 'allSpcesPage'])
+//             ->name('model-specs-index');
 
         // Stock Cars //
     Route::get('manager/all-stock-cars', [StockCarsController::class, 'index'])
@@ -101,7 +102,19 @@ Route::middleware('admin')->group(function(){
         Route::delete('destroy/{carBrandModel}', 'destroy')->name('destroy');
        
     });
+     ####################bodyShapes#################################
+ Route::controller(BodyShapeController::class)->prefix('body-shapes')->name('body-shape.')->group(function () {
 
+        Route::post('/', 'store')->name('store');
+        Route::put('/{bodyShape}', 'update')->name('update');
+        Route::delete('destroy/{bodyShape}', 'destroy')->name('destroy');
+       
+    });
+
+
+
+    Route::get('manager/models-specs', [BodyShapeController::class, 'index'])
+            ->name('model-specs-index');
 
 
 
