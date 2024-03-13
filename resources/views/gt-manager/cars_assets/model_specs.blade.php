@@ -9,6 +9,15 @@
             </ol>
         </div>
     </nav>
+    @if ($errors->any())
+    @php
+    // toast('try agin','error')->autoClose(5000);
+    toast('Post Updated','success','top-right')->showCloseButton();
+    @endphp
+
+    @endif
+
+
     {{-- ========================== Body Shapes ========================== --}}
     <div class="row mb-4">
         <div class="col-md-12">
@@ -51,13 +60,14 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                             data-target="#update-body-shape{{ $bodyShape->id }}">Edit</a>
-                                        <a class="dropdown-item" href="{{ route('body-shape.destroy',$bodyShape->id) }}" data-confirm-delete="true">Delete</a>
+                                        <a class="dropdown-item" href="{{ route('body-shape.destroy',$bodyShape->id) }}"
+                                            data-confirm-delete="true">Delete</a>
                                     </div>
                                 </div>
                             </div>
-                            {{-- ========================== updatee body sheps ========================== --}}
-                            <div class="modal fade" id="update-body-shape{{ $bodyShape->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            {{-- ========================== update body sheps ========================== --}}
+                            <div class="modal fade" id="update-body-shape{{ $bodyShape->id }}" tabindex="-1"
+                                role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -68,19 +78,19 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            <form class="forms-sample" method="POST" enctype="multipart/form-data"
-                                                action="{{ route('body-shape.update',$bodyShape->id) }}">
+                                            <form class="forms-sample update-body-shape" method="POST"
+                                                enctype="multipart/form-data" data-model-id="{{ $bodyShape->id  }}">
                                                 @csrf
-                                                @method('put')
+                                                @method('PUT')
+                                                <input hidden type="text" class="form-control" name="id"
+                                                    value="{{ $bodyShape->id  }}">
                                                 <div class="form-group">
                                                     <label for="exampleInputUsername1">Name <span
                                                             class="text-danger">(EN)</span></label>
                                                     <input type="text" class="form-control" name="name_en"
                                                         autocomplete="off" placeholder="English Name"
                                                         value="{{ old('name_en')?? $bodyShape->getTranslations('name')['en']  }}">
-                                                    @error('name_en')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                    @enderror
+                                                    <small class="text-danger en_name-error" id='en_name-error'></small>
 
                                                 </div>
                                                 <div class="form-group">
@@ -89,9 +99,7 @@
                                                     <input type="text" class="form-control" name="name_ar"
                                                         placeholder="Arabic Name"
                                                         value="{{ old('name_ar')?? $bodyShape->getTranslations('name')['ar'] }}">
-                                                    @error('name_ar')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                    @enderror
+                                                    <small class="text-danger ar_name-error" id='ar_name-error'></small>
                                                 </div>
 
                                                 <h6 class="mt-4 mb-2">Media Section</h6>
@@ -108,9 +116,7 @@
                                                                 type="button">Upload</button>
                                                         </span>
                                                     </div>
-                                                    @error('logo')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                    @enderror
+                                                    <small class="text-danger logo-error" id='logo-error'></small>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmaill" class="form-label"> </label>
@@ -153,8 +159,8 @@
                 </div>
                 <div class="modal-body">
 
-                    <form class="forms-sample" method="POST" enctype="multipart/form-data"
-                        action="{{ route('body-shape.store') }}">
+                    <form class="forms-sample store-body-shape" method="POST" enctype="multipart/form-data"
+                        id="store-body-shape-form">
                         @csrf
 
                         <div class="form-group">
@@ -359,4 +365,104 @@
     </div>
     {{-- ========================== End ========================== --}}
 </div>
+@endsection
+
+@section('script')
+<script>
+    // CSRF Token Setup // CSRF Token Setup
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+          $(document).ready(function() {
+        // ######################## body shape #########################
+        // store
+        $('#store-body-shape-form').submit(function(e) {
+            
+            e.preventDefault();
+                 let formData = new FormData(this);
+             
+                let url = "{{ route('body-shape.store') }}";
+            
+            $.ajax({
+                url: url, // Use form action attribute as URL
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                  
+                    // Show success message
+                    window.location.href = "{{ route('car-brand.index') }}";
+                    // Reload the page after a successful request
+                    location.reload(true); // Force reload from server
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseJSON.errors.name_en);
+                    // Error handling
+                    if (xhr.status == 422) {
+                        var errors = xhr.responseJSON.errors;
+                        
+                            if (errors.hasOwnProperty('name_ar')) {
+                            $(".en_name-error").text(errors.name_en[0]);
+                        }
+                        if (errors.hasOwnProperty('name_ar')) {
+                            $(".ar_name-error").text(errors.name_ar[0]);
+                        }
+                        if (errors.hasOwnProperty('logo')) {
+                            $(".logo-error").text(errors.logo[0]);
+                        }
+                    }
+                }
+            });
+        // edit
+    $('.update-body-shape').submit(function(e) {      
+    e.preventDefault();
+         let formData = new FormData(this);
+        let modelId = $(this).data('model-id'); // Retrieve the model ID from the form
+        let url = "{{ route('body-shape.update', ':id') }}";
+        url = url.replace(':id', modelId);
+    $.ajax({
+        url: url, // Use form action attribute as URL
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          
+            // Show success message
+            window.location.href = "{{ route('car-brand.index') }}";
+            // Reload the page after a successful request
+            location.reload(true); // Force reload from server
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseJSON.errors.name_en);
+            // Error handling
+            if (xhr.status == 422) {
+                var errors = xhr.responseJSON.errors;
+                
+                    if (errors.hasOwnProperty('name_ar')) {
+                    $(".en_name-error").text(errors.name_en[0]);
+                }
+                if (errors.hasOwnProperty('name_ar')) {
+                    $(".ar_name-error").text(errors.name_ar[0]);
+                }
+                if (errors.hasOwnProperty('logo')) {
+                    $(".logo-error").text(errors.logo[0]);
+                }
+            }
+        }
+    });
+});
+
+        // ######################## end body Shape ######################
+
+
+
+          // ######################## body shape #########################
+        
+        // ######################## end body Shape ######################
+    });
+</script>
 @endsection

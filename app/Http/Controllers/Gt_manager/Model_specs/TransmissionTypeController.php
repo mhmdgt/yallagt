@@ -11,10 +11,7 @@ use App\Http\Requests\GtManager\ModeSpecs\TransmissionTypeRequest;
 
 class TransmissionTypeController extends Controller
 {
-     //
      use ImageTrait;
-
-  
      public function store(TransmissionTypeRequest $request)
      {
              TransmissionType::create([

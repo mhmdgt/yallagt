@@ -15,7 +15,7 @@ class BodyShapeController extends Controller
 
     public function index()
     { 
-        confirmDelete('Delete body shape!', 'Are you sure you want to delete?');
+         confirmDelete('Delete body shape!', 'Are you sure you want to delete?');
         $bodyShapes=BodyShape::get();
         
         return view('gt-manager.cars_assets.model_specs', compact('bodyShapes'));
@@ -35,7 +35,7 @@ class BodyShapeController extends Controller
         return redirect()->back();
     }
 
-    public function update(Request $request, BodyShape $bodyShape)
+    public function update(BodyShapeRequest $request, BodyShape $bodyShape)
     {
         
         $hexName = $request->hasFile('logo') ? $this->uploadImage($request->logo, 'body_shapes_logo', $bodyShape->logo) : $bodyShape->logo;
