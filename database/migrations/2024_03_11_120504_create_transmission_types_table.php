@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('car_brand_models', function (Blueprint $table) {
+        Schema::create('transmission_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('car_brand_id')->references('id')->on('car_brands')->cascadeOnDelete();
-            $table->string('name');
-            $table->string('slug');
+            $table->string('name')->unique();
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('car_brand_models');
+        Schema::dropIfExists('transmission_types');
     }
 };

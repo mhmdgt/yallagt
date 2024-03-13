@@ -30,16 +30,17 @@
                 <div class="card-body">
                     <div class="col-12 col-md-8">
                         <img class="image-in-box"
-                            src="{{ asset('gt_manager/media/car_brands_logo/' . $car_brand->logo) }}" alt="...">
-                        <span class="profile-name ml-3 h4">{{ $car_brand->name }}</span>
+                            src="{{ asset('gt_manager/media/car_brands_logo/' . $carBrand->logo) }}" alt="...">
+                        <span class="profile-name ml-3 h4">{{ $carBrand->name }}</span>
                         <td class="col-6 col-md-4">
                             <button class="btn btn-inverse-warning ml-4 mr-1" data-toggle="modal"
                                 data-target="#EditCarBrand" title="Edit">
                                 <i data-feather="edit"></i>
                             </button>
-                            <a href="{{ route('car-brand.destroy', $car_brand->id) }}" class="btn btn-inverse-danger"
-                                data-confirm-delete="true" >
-                               
+
+                            <a href="{{ route('car-brand.destroy', $carBrand->id) }}" class="btn btn-inverse-danger"
+                                data-confirm-delete="true">
+                                delete
                             </a>
                         </td>
                     </div>
@@ -65,19 +66,70 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    @foreach ($car_brand->models as $key => $model)
+                                    @foreach ($carBrand->models as $key => $model)
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{ $model->model_name }}</td>
-                                    <td>{{ $model->slug }}</td>
+                                    <td> {{ $model->getTranslations('name')['en'] }}</td>
+                                    <td> {{ $model->getTranslations('name')['ar'] }}</td>
+
                                     <td>
-                                        <a href="#" class="btn btn-inverse-warning" title="Edit">
+                                        <button class="btn btn-inverse-warning ml-4 mr-1" data-toggle="modal"
+                                            data-target="#editModel{{ $model->id }}" title="Edit">
                                             <i data-feather="edit"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-inverse-danger" id="delete" title="Delete">
-                                            <i data-feather="trash-2"></i>
+                                        </button>
+
+                                        <a href="{{ route('car-brand-model.destroy', $model->id) }}"
+                                            class="btn btn-inverse-danger" data-confirm-delete="true">
+                                            delete
                                         </a>
                                     </td>
                                 </tr>
+                                {{-- ========================== Edit Modal ========================== --}}
+                                <div class="modal fade" id="editModel{{ $model->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Model</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="forms-sample car-brand-model-edit" method="POST" data-model-id="{{ $model->id }}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input hidden type="text" class="form-control" name="id" value="{{ $model->id }}">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputUsername1">Name <span
+                                                                class="text-danger">(EN)</span></label>
+                                                        <input type="text" class="form-control" name="name_en"
+                                                            autocomplete="off" placeholder="English Name"
+                                                            value="{{ $model->getTranslations('name')['en']  }}">
+                                                        <small class="text-danger" id='en_name-error'></small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputUsername1">Name <span
+                                                                class="text-danger">(AR)</span></label>
+                                                        <input type="text" class="form-control" name="name_ar"
+                                                            placeholder="Arabic Name"
+                                                            value="{{ $model->getTranslations('name')['ar']  }}">
+
+                                                        <small class="text-danger" id='ar_name-error'></small>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" id="add_employee_btn"
+                                                            class="btn btn-primary">Save
+                                                            changes</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -98,19 +150,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{-- update carBrand --}}
-                    <form id="formValidation" class="forms-sample" method="POST" enctype="multipart/form-data"
-                        action="{{ route('store-brand-model',$car_brand->id) }}">
-<h1>{{ $car_brand->getTranslations('name')['ar']  }}</h1>
+                    <form id="car-brand-model" class="forms-sample" method="POST">
+
                         @csrf
+                        <input hidden type="text" class="form-control" name="car_brand_id" value="{{ $carBrand->id }}">
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name <span class="text-danger">(EN)</span></label>
                             <input type="text" class="form-control" name="name_en" autocomplete="off"
-                                placeholder="English Name" value="{{ $car_brand->getTranslations('name')['en'] ?? '' }}">
+                                placeholder="English Name">
+                            <small class="text-danger" id='en_name-error'></small>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name <span class="text-danger">(AR)</span></label>
-                            <input type="text" class="form-control" name="name_ar" placeholder="Arabic Name" value="{{ $car_brand->getTranslations('name')['ar'] ?? '' }}" >
+                            <input type="text" class="form-control" name="name_ar" placeholder="Arabic Name">
+                            <small class="text-danger" id='ar_name-error'></small>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" id="add_employee_btn" class="btn btn-primary">Save
@@ -136,19 +189,20 @@
                 </div>
                 <div class="modal-body">
 
-                    <form  class="forms-sample" method="POST" enctype="multipart/form-data" id="car-brand">
+                    <form class="forms-sample" method="POST" enctype="multipart/form-data" id="car-brand">
                         @csrf
+
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name <span class="text-danger">(EN)</span></label>
                             <input type="text" class="form-control" name="name_en" autocomplete="off"
-                           value="{{ $car_brand->getTranslations('name')['en']  }}">
-                           <small class="text-danger" id='en_name-error'></small>
+                                value="{{ $carBrand->getTranslations('name')['en']  }}">
+                            <small class="text-danger" id='en_name-error'></small>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name <span class="text-danger">(AR)</span></label>
                             <input type="text" class="form-control" name="name_ar" autocomplete="off"
-                       value="{{ $car_brand->getTranslations('name')['ar']  }}">
-                       <small class="text-danger" id='ar_name-error'></small>
+                                value="{{ $carBrand->getTranslations('name')['ar']  }}">
+                            <small class="text-danger" id='ar_name-error'></small>
                         </div>
 
                         <h6 class="mt-4 mb-2">Media Section</h6>
@@ -167,7 +221,7 @@
                         <div class="mb-3">
                             <label for="exampleInputEmaill" class="form-label"> </label>
                             <img id="showImage" class="image-rec-full"
-                                src="{{ asset('gt_manager/media/car_brands_logo/' . $car_brand->logo) }}" alt="...">
+                                src="{{ asset('gt_manager/media/car_brands_logo/' . $carBrand->logo) }}" alt="...">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" id="add_employee_btn" class="btn btn-primary">Save
@@ -194,12 +248,12 @@
     });
 
     $(document).ready(function() {
+        //######################################## update car brand ###################################################
     $('#car-brand').submit(function(e) {
         e.preventDefault();
         let formData = new FormData(this);
-        console.log(formData);
-        let url = "{{ route('car-brand.update', $car_brand->id) }}"; // Adjust the URL
-
+       
+        let url = "{{ route('car-brand.update',$carBrand->id) }}";
         $.ajax({
             url: url,
             type: "POST", // Change the method to PUT
@@ -234,6 +288,89 @@
             }
         });
     });
+
+    // #################################### store car brand model#######################################################
+    $('#car-brand-model').submit(function(e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+        console.log(formData);
+      $('#car-brand-model').submit(function(e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+        console.log(formData);
+        let url = "{{ route('car-brand-model.store') }}"; // Adjust the URL
+
+        $.ajax({
+            url: url,
+            type: "POST", // Change the method to PUT
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                console.log(data);
+                // Show success message
+                window.location.href = "{{ route('car-brand.show',$carBrand->id) }}";
+                // Reload the page after a successful request
+                location.reload(true); // Force reload from server
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr);
+                // Error handling
+                if (xhr.status == 422) {
+                    var errors = xhr.responseJSON.errors;
+                    // Handle validation errors
+                    if (errors.hasOwnProperty('name_en')) {
+                        $("#en_name-error").text(errors.name_en[0]);
+                    }
+                    if (errors.hasOwnProperty('name_ar')) {
+                        $("#ar_name-error").text(errors.name_ar[0]);
+                    }
+                   
+                } 
+            }
+        });
+    });
+    });
+
+// ############################## update car brand model ######################################
+$('.car-brand-model-edit').submit(function(e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+        let modelId = $(this).data('model-id'); // Retrieve the model ID from the form
+        let url = "{{ route('car-brand-model.update', ':id') }}";
+        url = url.replace(':id', modelId);
+
+        $.ajax({
+            url: url,
+            type: "POST", // No need to override method here, since we're using @method('PUT') in the form
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                console.log(data);
+                // Show success message
+                window.location.href = "{{ route('car-brand.show', $carBrand->id) }}";
+                // Reload the page after a successful request
+                location.reload(true); // Force reload from server
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr);
+                // Error handling
+                if (xhr.status == 422) {
+                    var errors = xhr.responseJSON.errors;
+                    // Handle validation errors
+                    if (errors.hasOwnProperty('name_en')) {
+                        $("#en_name-error").text(errors.name_en[0]);
+                    }
+                    if (errors.hasOwnProperty('name_ar')) {
+                        $("#ar_name-error").text(errors.name_ar[0]);
+                    }
+                }
+            }
+        });
+    });
+   
+
 });
 
 </script>
